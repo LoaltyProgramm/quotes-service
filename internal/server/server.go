@@ -15,9 +15,7 @@ import (
 func RunServer(cfg *config.Config) error {
 	srv := http.Server{
 		Addr: fmt.Sprintf(":%s", cfg.Port),
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("OK"))
-		}),
+		Handler: nil,
 	}
 
 	quit := make(chan os.Signal, 1)
