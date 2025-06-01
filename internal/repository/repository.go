@@ -13,7 +13,7 @@ import (
 
 type Repository interface {
 	AddQuote(quote quotes.Quote) error
-	GetQuotes() ([]string, error) 
+	GetQuotes() ([]string, error)
 	GetQuoteRandom() (string, error)
 	GetQuotesByAuthor(author string) ([]string, error)
 	DeleteQuote(id string) error
