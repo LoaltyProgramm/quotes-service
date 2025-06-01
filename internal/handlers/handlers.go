@@ -11,6 +11,11 @@ import (
 	writejson "github.com/LoaltyProgramm/quotes-service/internal/utils/write_json"
 )
 
+const (
+	ERRORCREATEQUOTE001 = "author or quote is not empty"
+	ERRORCREATEQUOTE002 = "such a record already exists"
+)
+
 type Handlers struct {
 	quoteService quoteservice.QuoteService
 }
@@ -35,11 +40,20 @@ func (h *Handlers) createQuoteHandler(w http.ResponseWriter, r *http.Request) {
 
 		err := h.quoteService.CreateQuote(quote)
 		if err != nil {
-			writejson.WriteJson(w, map[string]string{"error": "bad request"}, http.StatusBadRequest)
-			log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
-			return
+			if err.Error() == ERRORCREATEQUOTE001 {
+				writejson.WriteJson(w, map[string]string{"error": ERRORCREATEQUOTE001}, http.StatusBadRequest)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			} else if err.Error() == ERRORCREATEQUOTE002 {
+				writejson.WriteJson(w, map[string]string{"error": ERRORCREATEQUOTE002}, http.StatusBadRequest)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			} else {
+				writejson.WriteJson(w, map[string]string{"error": "bad request"}, http.StatusBadRequest)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			}
 		}
-
 		writejson.WriteJson(w, map[string]string{"status": "created"}, http.StatusCreated)
 	}
 }
