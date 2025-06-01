@@ -13,7 +13,7 @@ type QuoteService interface {
 	CreateQuote(quote quotes.Quote) error
 	ListQuotes() ([]quotes.Quote, error)
 	GetQuoteRandom() (*quotes.Quote, error)
-	ListQuotesByAuthor(author string) ([]string, error)
+	ListQuotesByAuthor(author string) ([]quotes.Quote, error)
 	RemoveQuoteById(id string) error
 }
 
@@ -57,7 +57,7 @@ func (s *quoteService) GetQuoteRandom() (*quotes.Quote, error) {
 	return quote, nil
 }
 
-func (s *quoteService) ListQuotesByAuthor(author string) ([]string, error) {
+func (s *quoteService) ListQuotesByAuthor(author string) ([]quotes.Quote, error) {
 	 _, err := strconv.Atoi(author)
 	 if err == nil {
 		return nil, errors.New("the data cannot be a number")

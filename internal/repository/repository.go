@@ -15,7 +15,7 @@ type Repository interface {
 	AddQuote(quote quotes.Quote) error
 	GetQuotes() ([]quotes.Quote, error)
 	GetQuoteRandom() (*quotes.Quote, error)
-	GetQuotesByAuthor(author string) ([]string, error)
+	GetQuotesByAuthor(author string) ([]quotes.Quote, error)
 	DeleteQuote(id string) error
 }
 
@@ -82,11 +82,11 @@ func (r *repository) GetQuoteRandom() (*quotes.Quote, error) {
 	return &randomQuote, nil
 }
 
-func (r *repository) GetQuotesByAuthor(author string) ([]string, error) {
-	authorQuotes := make([]string, 0, 10)
+func (r *repository) GetQuotesByAuthor(author string) ([]quotes.Quote, error) {
+	authorQuotes := make([]quotes.Quote, 0, 10)
 	for _, v := range r.Storage {
 		if v.Author == author {
-			authorQuotes = append(authorQuotes, v.Quote)
+			authorQuotes = append(authorQuotes, v)
 		}
 	}
 
