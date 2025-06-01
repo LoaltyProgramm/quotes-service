@@ -11,8 +11,8 @@ import (
 
 type QuoteService interface {
 	CreateQuote(quote quotes.Quote) error
-	ListQuotes() ([]string, error)
-	GetQuoteRandom() (string, error)
+	ListQuotes() ([]quotes.Quote, error)
+	GetQuoteRandom() (*quotes.Quote, error)
 	ListQuotesByAuthor(author string) ([]string, error)
 	RemoveQuoteById(id string) error
 }
@@ -40,7 +40,7 @@ func (s *quoteService) CreateQuote(quote quotes.Quote) error {
 	return nil
 }
 
-func (s *quoteService) ListQuotes() ([]string, error) {
+func (s *quoteService) ListQuotes() ([]quotes.Quote, error) {
 	quotes, err := s.repo.GetQuotes()
 	if err != nil {
 		return nil, err
@@ -48,10 +48,10 @@ func (s *quoteService) ListQuotes() ([]string, error) {
 	return quotes, nil
 }
 
-func (s *quoteService) GetQuoteRandom() (string, error) {
+func (s *quoteService) GetQuoteRandom() (*quotes.Quote, error) {
 	quote, err := s.repo.GetQuoteRandom()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	return quote, nil

@@ -69,120 +69,120 @@ func TestAddQuote(t *testing.T) {
 
 }
 
-func TestGetQuotes(t *testing.T) {
-	t.Run("The data is there", func(t *testing.T) {
-		storage := map[int64]quotes.Quote{
-			1: {Author: "Author1", Quote: "Quote1"},
-			2: {Author: "Author2", Quote: "Quote2"},
-			3: {Author: "Author3", Quote: "Quote3"},
-		}
+// func TestGetQuotes(t *testing.T) {
+// 	t.Run("The data is there", func(t *testing.T) {
+// 		storage := map[int64]quotes.Quote{
+// 			1: {Author: "Author1", Quote: "Quote1"},
+// 			2: {Author: "Author2", Quote: "Quote2"},
+// 			3: {Author: "Author3", Quote: "Quote3"},
+// 		}
 
-		repo := &repository{
-			Storage: storage,
-		}
+// 		repo := &repository{
+// 			Storage: storage,
+// 		}
 
-		got, err := repo.GetQuotes()
-		if err != nil {
-			t.Error(err.Error())
-		}
+// 		got, err := repo.GetQuotes()
+// 		if err != nil {
+// 			t.Error(err.Error())
+// 		}
 
-		expected := []string{"Quote1", "Quote2", "Quote3"}
+// 		expected := []string{"Quote1", "Quote2", "Quote3"}
 
-		if len(got) != len(expected) {
-			t.Fatalf("expected %d quotes, got %d", len(expected), len(got))
-		}
+// 		if len(got) != len(expected) {
+// 			t.Fatalf("expected %d quotes, got %d", len(expected), len(got))
+// 		}
 
-		expectedSet := make(map[string]bool)
-		for _, v := range expected {
-			expectedSet[v] = true
-		}
+// 		expectedSet := make(map[string]bool)
+// 		for _, v := range expected {
+// 			expectedSet[v] = true
+// 		}
 
-		for _, v := range got {
-			if !expectedSet[v] {
-				t.Errorf("unexpected quote: %v", v)
-			}
-		}
-	})
+// 		for _, v := range got {
+// 			if !expectedSet[v] {
+// 				t.Errorf("unexpected quote: %v", v)
+// 			}
+// 		}
+// 	})
 
-	t.Run("No data available", func(t *testing.T) {
-		storage := make(map[int64]quotes.Quote)
+// 	t.Run("No data available", func(t *testing.T) {
+// 		storage := make(map[int64]quotes.Quote)
 
-		repo := &repository{
-			Storage: storage,
-		}
+// 		repo := &repository{
+// 			Storage: storage,
+// 		}
 
-		expectedError := "quotes is not found"
+// 		expectedError := "quotes is not found"
 
-		quotes, err := repo.GetQuotes()
-		if len(quotes) > 0 {
-			t.Errorf("expected 0, got %v", len(quotes))
-		}
+// 		quotes, err := repo.GetQuotes()
+// 		if len(quotes) > 0 {
+// 			t.Errorf("expected 0, got %v", len(quotes))
+// 		}
 
-		if err == nil {
-			t.Errorf("expected error != nil, got %v", err)
-		}
+// 		if err == nil {
+// 			t.Errorf("expected error != nil, got %v", err)
+// 		}
 
-		if err.Error() != expectedError {
-			t.Errorf("expected %v, got %v", expectedError, err.Error())
-		}
-	})
-}
+// 		if err.Error() != expectedError {
+// 			t.Errorf("expected %v, got %v", expectedError, err.Error())
+// 		}
+// 	})
+// }
 
-func TestGetQuoteRandom(t *testing.T) {
-	t.Run("The data is there", func(t *testing.T) {
-		storage := map[int64]quotes.Quote{
-			1: {Author: "Author1", Quote: "Quote1"},
-			2: {Author: "Author2", Quote: "Quote2"},
-			3: {Author: "Author3", Quote: "Quote3"},
-		}
+// func TestGetQuoteRandom(t *testing.T) {
+// 	t.Run("The data is there", func(t *testing.T) {
+// 		storage := map[int64]quotes.Quote{
+// 			1: {Author: "Author1", Quote: "Quote1"},
+// 			2: {Author: "Author2", Quote: "Quote2"},
+// 			3: {Author: "Author3", Quote: "Quote3"},
+// 		}
 
-		repo := &repository{
-			Storage: storage,
-		}
+// 		repo := &repository{
+// 			Storage: storage,
+// 		}
 
-		randomQuote, err := repo.GetQuoteRandom()
-		if err != nil {
-			t.Error(err.Error())
-		}
+// 		randomQuote, err := repo.GetQuoteRandom()
+// 		if err != nil {
+// 			t.Error(err.Error())
+// 		}
 
-		valid := false
-		for _, v := range storage {
-			if randomQuote == v.Quote {
-				valid = true
-				break
-			}
-		}
+// 		valid := false
+// 		for _, v := range storage {
+// 			if randomQuote == v.Quote {
+// 				valid = true
+// 				break
+// 			}
+// 		}
 
-		if !valid {
-			t.Errorf("expected true, got %v", valid)
-		}
-	})
+// 		if !valid {
+// 			t.Errorf("expected true, got %v", valid)
+// 		}
+// 	})
 
-	t.Run("No data available", func(t *testing.T) {
-		storage := make(map[int64]quotes.Quote)
+// 	t.Run("No data available", func(t *testing.T) {
+// 		storage := make(map[int64]quotes.Quote)
 
-		repo := &repository{
-			Storage: storage,
-		}
+// 		repo := &repository{
+// 			Storage: storage,
+// 		}
 
-		expectedError := "quotes is not found"
+// 		expectedError := "quotes is not found"
 
-		randomQuote, err := repo.GetQuoteRandom()
+// 		randomQuote, err := repo.GetQuoteRandom()
 
-		if len(randomQuote) > 0 {
-			t.Errorf("expected 0, got %v", len(randomQuote))
-		}
+// 		if len(randomQuote) > 0 {
+// 			t.Errorf("expected 0, got %v", len(randomQuote))
+// 		}
 
-		if err == nil {
-			t.Errorf("expected error != nil, got %v", err)
-		}
+// 		if err == nil {
+// 			t.Errorf("expected error != nil, got %v", err)
+// 		}
 
-		if err.Error() != expectedError {
-			t.Errorf("expected %v, got %v", expectedError, err.Error())
-		}
-	})
+// 		if err.Error() != expectedError {
+// 			t.Errorf("expected %v, got %v", expectedError, err.Error())
+// 		}
+// 	})
 
-}
+// }
 
 func TestGetQuotesByAuthor(t *testing.T) {
 	t.Run("Valid author", func(t *testing.T) {

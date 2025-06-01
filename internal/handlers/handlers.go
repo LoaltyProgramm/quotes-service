@@ -16,6 +16,14 @@ const (
 	ERRORCREATEQUOTE002 = "such a record already exists"
 )
 
+const (
+	ERRORLISTQUOTES001 = "quotes is not found"
+)
+
+const (
+	ERRORGETRANDOMQUOTE = "quotes is not found"
+)
+
 type Handlers struct {
 	quoteService quoteservice.QuoteService
 }
@@ -26,7 +34,7 @@ func NewHandlers(quoteService quoteservice.QuoteService) Handlers {
 	}
 }
 
-func (h *Handlers) createQuoteHandler(w http.ResponseWriter, r *http.Request) {
+func (h *Handlers) QuoteHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		var quote quotes.Quote
@@ -53,12 +61,51 @@ func (h *Handlers) createQuoteHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		
+
 		log.Printf("Method:%s, url-path:%s,", r.Method, r.URL.Path)
 		writejson.WriteJson(w, map[string]string{"status": "created"}, http.StatusCreated)
+
+	case http.MethodGet:
+		quotes, err := h.quoteService.ListQuotes()
+		if err != nil {
+			if err.Error() == ERRORLISTQUOTES001 {
+				writejson.WriteJson(w, map[string]string{"error": ERRORLISTQUOTES001}, http.StatusNotFound)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			} else {
+				writejson.WriteJson(w, map[string]string{"error": "repeat later"}, http.StatusInternalServerError)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			}
+		}
+
+		log.Printf("Method:%s, url-path:%s,", r.Method, r.URL.Path)
+		writejson.WriteJson(w, quotes, http.StatusOK)
+	}
+}
+
+func (h *Handlers) RandomQuoteHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		randomQuote, err := h.quoteService.GetQuoteRandom()
+		if err != nil {
+			if err.Error() == ERRORGETRANDOMQUOTE {
+				writejson.WriteJson(w, map[string]string{"error": ERRORGETRANDOMQUOTE}, http.StatusNotFound)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			} else {
+				writejson.WriteJson(w, map[string]string{"error": "repeat later"}, http.StatusInternalServerError)
+				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
+				return
+			}
+		}
+
+		log.Printf("ERROR Method:%s, url-path:%s", r.Method, r.URL.Path)
+		writejson.WriteJson(w, randomQuote, http.StatusOK)
 	}
 }
 
 func (h *Handlers) InitHandlers() {
-	http.HandleFunc("/quotes", h.createQuoteHandler)
+	http.HandleFunc("/quotes", h.QuoteHandler)
+	http.HandleFunc("/quotes/random", h.RandomQuoteHandler)
 }
