@@ -10,7 +10,7 @@ import (
 func TestInitStorage(t *testing.T) {
 	quotesMemory := InitStorage()
 
-	expectedType := reflect.TypeOf(make(map[string]quotes.Quotes))
+	expectedType := reflect.TypeOf(make(map[int64]quotes.Quote))
 	actualType := reflect.TypeOf(quotesMemory)
 
 	if quotesMemory == nil {
