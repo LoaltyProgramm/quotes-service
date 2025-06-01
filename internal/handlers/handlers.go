@@ -38,8 +38,7 @@ func (h *Handlers) createQuoteHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		err := h.quoteService.CreateQuote(quote)
-		if err != nil {
+		if err := h.quoteService.CreateQuote(quote); err != nil {
 			if err.Error() == ERRORCREATEQUOTE001 {
 				writejson.WriteJson(w, map[string]string{"error": ERRORCREATEQUOTE001}, http.StatusBadRequest)
 				log.Printf("ERROR Method:%s, url-path:%s, error:%s", r.Method, r.URL.Path, err.Error())
@@ -54,6 +53,8 @@ func (h *Handlers) createQuoteHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+		
+		log.Printf("Method:%s, url-path:%s,", r.Method, r.URL.Path)
 		writejson.WriteJson(w, map[string]string{"status": "created"}, http.StatusCreated)
 	}
 }
