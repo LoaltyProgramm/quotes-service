@@ -11,9 +11,9 @@ import (
 
 type QuoteService interface {
 	CreateQuote(quote quotes.Quote) error
-	ListQuotes() ([]quotes.Quote, error)
-	GetQuoteRandom() (*quotes.Quote, error)
-	ListQuotesByAuthor(author string) ([]quotes.Quote, error)
+	ListQuotes() (map[int64]quotes.Quote, error)
+	GetQuoteRandom() (map[int64]quotes.Quote, error)
+	ListQuotesByAuthor(author string) (map[int64]quotes.Quote, error)
 	RemoveQuoteById(id string) error
 }
 
@@ -40,7 +40,7 @@ func (s *quoteService) CreateQuote(quote quotes.Quote) error {
 	return nil
 }
 
-func (s *quoteService) ListQuotes() ([]quotes.Quote, error) {
+func (s *quoteService) ListQuotes() (map[int64]quotes.Quote, error) {
 	quotes, err := s.repo.GetQuotes()
 	if err != nil {
 		return nil, err
@@ -48,7 +48,7 @@ func (s *quoteService) ListQuotes() ([]quotes.Quote, error) {
 	return quotes, nil
 }
 
-func (s *quoteService) GetQuoteRandom() (*quotes.Quote, error) {
+func (s *quoteService) GetQuoteRandom() (map[int64]quotes.Quote, error) {
 	quote, err := s.repo.GetQuoteRandom()
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (s *quoteService) GetQuoteRandom() (*quotes.Quote, error) {
 	return quote, nil
 }
 
-func (s *quoteService) ListQuotesByAuthor(author string) ([]quotes.Quote, error) {
+func (s *quoteService) ListQuotesByAuthor(author string) (map[int64]quotes.Quote, error) {
 	 _, err := strconv.Atoi(author)
 	 if err == nil {
 		return nil, errors.New("the data cannot be a number")

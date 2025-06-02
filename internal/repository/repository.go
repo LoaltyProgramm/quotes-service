@@ -13,9 +13,9 @@ import (
 
 type Repository interface {
 	AddQuote(quote quotes.Quote) error
-	GetQuotes() ([]quotes.Quote, error)
-	GetQuoteRandom() (*quotes.Quote, error)
-	GetQuotesByAuthor(author string) ([]quotes.Quote, error)
+	GetQuotes() (map[int64]quotes.Quote, error)
+	GetQuoteRandom() (map[int64]quotes.Quote, error)
+	GetQuotesByAuthor(author string) (map[int64]quotes.Quote, error)
 	DeleteQuote(id string) error
 }
 
@@ -48,7 +48,7 @@ func (r *repository) AddQuote(quote quotes.Quote) error {
 	return nil
 }
 
-func (r *repository) GetQuotes() ([]quotes.Quote, error) {
+func (r *repository) GetQuotes() (map[int64]quotes.Quote, error) {
 	quotes := make([]quotes.Quote, 0, 10)
 	for _, v := range r.Storage {
 		quotes = append(quotes, v)
@@ -58,10 +58,10 @@ func (r *repository) GetQuotes() ([]quotes.Quote, error) {
 		return nil, errors.New("quotes is not found")
 	}
 
-	return quotes, nil
+	return r.Storage, nil
 }
 
-func (r *repository) GetQuoteRandom() (*quotes.Quote, error) {
+func (r *repository) GetQuoteRandom() (map[int64]quotes.Quote, error) {
 	keys := make([]int64, 0, 10)
 	for k := range r.Storage {
 		keys = append(keys, k)
@@ -79,14 +79,19 @@ func (r *repository) GetQuoteRandom() (*quotes.Quote, error) {
 
 	randomQuote := r.Storage[key]
 
-	return &randomQuote, nil
+	return map[int64]quotes.Quote{ // Тут правка была
+		key: randomQuote,
+	}, nil
 }
 
-func (r *repository) GetQuotesByAuthor(author string) ([]quotes.Quote, error) {
-	authorQuotes := make([]quotes.Quote, 0, 10)
-	for _, v := range r.Storage {
+func (r *repository) GetQuotesByAuthor(author string) (map[int64]quotes.Quote, error) {
+	authorQuotes := make(map[int64]quotes.Quote)
+	for k, v := range r.Storage {
 		if v.Author == author {
-			authorQuotes = append(authorQuotes, v)
+			authorQuotes[k] = quotes.Quote{
+				Author: v.Author,
+				Quote: v.Quote,
+			}
 		}
 	}
 
