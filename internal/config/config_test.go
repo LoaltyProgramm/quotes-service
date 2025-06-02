@@ -6,22 +6,24 @@ import (
 )
 
 func TestNewConfig_WithEnvPort(t *testing.T) {
-	os.Setenv("PORT", "7456")
-	defer os.Unsetenv("PORT")
+	t.Run("Test with env port", func(t *testing.T) {
+		os.Setenv("PORT", "7456")
+		defer os.Unsetenv("PORT")
 
-	cfg := NewConfig()
+		cfg := NewConfig()
 
-	if cfg.Port != "7456" {
-		t.Errorf("Expected port '7456', got '%s'", cfg.Port)
-	}
-}
+		if cfg.Port != "7456" {
+			t.Errorf("Expected port '7456', got '%s'", cfg.Port)
+		}
+	})
 
-func TestNewConfig_DefaultPort(t *testing.T) {
-	os.Unsetenv("PORT")
+	t.Run("Test defualt port", func(t *testing.T) {
+		os.Unsetenv("PORT")
 
-	cfg := NewConfig()
+		cfg := NewConfig()
 
-	if cfg.Port != "8080" {
-		t.Errorf("Expected default port '8080', got '%s'", cfg.Port)
-	}
+		if cfg.Port != "8080" {
+			t.Errorf("Expected default port '8080', got '%s'", cfg.Port)
+		}
+	})
 }
