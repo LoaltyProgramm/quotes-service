@@ -113,7 +113,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 }
 ```
 --------------------------------------------------------------------------
-# GET /quotes/random
+#### GET /quotes/random
 
 Тело ответа
 ```json
@@ -125,7 +125,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 }
 ```
 --------------------------------------------------------------------------
-# GET /quotes?author=Confucius
+#### GET /quotes?author=Confucius
 
 Тело ответа 
 ```json
@@ -137,7 +137,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 }
 ```
 --------------------------------------------------------------------------
-# POST /quotes
+#### POST /quotes
 
 Тело запроса
 ```json
@@ -154,7 +154,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 }
 ```
 --------------------------------------------------------------------------
-# DELETE /quotes/3
+#### DELETE /quotes/3
 
 Тело ответа 
 ```json
