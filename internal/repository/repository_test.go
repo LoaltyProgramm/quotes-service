@@ -285,7 +285,7 @@ func TestDeleteQuote(t *testing.T) {
 		}
 	})
 
-	t.Run("Ivalid id", func(t *testing.T) {
+	t.Run("Invalid id", func(t *testing.T) {
 		storage := map[int64]quotes.Quote{
 			1: {Author: "Author1", Quote: "Quote1"},
 			2: {Author: "Author2", Quote: "Quote2"},
