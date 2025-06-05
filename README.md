@@ -71,7 +71,27 @@ GET /quotes/random - получение рандомной цитаты
 POST /quotes - добавление цитаты 
 DELETE /quotes/{id} - удаление цитаты по id
 ```
+### 6. Команды для проверки работоспособности API
+Где написано your_port, указывайте тот порт на котором вы запустили сервис 
 
+```bash
+curl -X POST http://localhost:your_port/quotes -H "Content-Type: application/json" -d '{"author":"Confucius", "quote":"Life is simple, but we insist on making it complicated."}'
+```
 
+```bash
+curl http://localhost:your_port/quotes
+```
+
+```bash
+curl http://localhost:your_port/quotes/random
+```
+
+```bash
+curl http://localhost:your_port/quotes?author=Confucius
+```
+
+```bash
+curl -X DELETE http://localhost:your_port/quotes/1
+```
 
 
