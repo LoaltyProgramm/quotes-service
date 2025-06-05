@@ -97,7 +97,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 ```
 
 ### 7. Примеры ответов API
-# GET /quotes
+#### GET /quotes
 
 Тело ответа
 ```json
