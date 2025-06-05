@@ -131,8 +131,8 @@ curl -X DELETE http://localhost:8080/quotes/1
 ```json
 {
     "2": {
-        "author": "Oscar Wilde",
-        "quote": "Be yourself; everyone else is already taken."
+        "author": "Confucius",
+        "quote": "Life is simple, but we insist on making it complicated."
     }
 }
 ```
