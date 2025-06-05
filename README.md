@@ -96,4 +96,18 @@ curl http://localhost:8080/quotes?author=Confucius
 curl -X DELETE http://localhost:8080/quotes/1
 ```
 
+### 7. Примеры ответов API
+GET /quotes
+```bash
+{
+    "1": {
+        "author": "Confucius",
+        "quote": "Life is simple, but we insist on making it complicated."
+    },
+    "2": {
+        "author": "Oscar Wilde",
+        "quote": "Be yourself; everyone else is already taken."
+    }
+}
+```
 
