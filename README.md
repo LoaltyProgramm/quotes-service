@@ -130,7 +130,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 Тело ответа 
 ```json
 {
-    "2": {
+    "1": {
         "author": "Confucius",
         "quote": "Life is simple, but we insist on making it complicated."
     }
