@@ -98,8 +98,9 @@ curl -X DELETE http://localhost:8080/quotes/1
 
 ### 7. Примеры ответов API
 GET /quotes
+
 Тело ответа
-```bash
+```json
 {
     "1": {
         "author": "Confucius",
@@ -113,8 +114,9 @@ GET /quotes
 ```
 
 GET /quotes/random
+
 Тело ответа
-```bash
+```json
 {
     "2": {
         "author": "Oscar Wilde",
@@ -124,8 +126,9 @@ GET /quotes/random
 ```
 
 GET /quotes?author=Confucius
+
 Тело ответа 
-```bash
+```json
 {
     "2": {
         "author": "Oscar Wilde",
@@ -135,8 +138,9 @@ GET /quotes?author=Confucius
 ```
 
 POST /quotes
+
 Тело запроса
-```bash
+```json
 {
   "author": "Marcus Aurelius",
   "quote": "You have power over your mind – not outside events."
@@ -144,7 +148,7 @@ POST /quotes
 ```
 
 Тело ответа
-```bash
+```json
 {
     "status": "created"
 }
@@ -152,7 +156,7 @@ POST /quotes
 
 DELETE /quotes/3
 Тело ответа 
-```bash
+```json
 {
     "delete": "2"
 }
