@@ -64,11 +64,13 @@ CONTAINER ID   IMAGE                       COMMAND              CREATED         
 ✅После успешной проверки подключайтесь к API
 
 ### 5. Эндпоинты api сервиса
+```bash
 GET /quotes - получение всех цитат 
 GET /quotes?author=your_author - получение цитат определенного автора 
 GET /quotes/random - получение рандомной цитаты 
 POST /quotes - добавление цитаты 
 DELETE /quotes/{id} - удаление цитаты по id
+```
 
 
 
