@@ -98,6 +98,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 
 ### 7. Примеры ответов API
 GET /quotes
+Тело ответа
 ```bash
 {
     "1": {
@@ -108,6 +109,52 @@ GET /quotes
         "author": "Oscar Wilde",
         "quote": "Be yourself; everyone else is already taken."
     }
+}
+```
+
+GET /quotes/random
+Тело ответа
+```bash
+{
+    "2": {
+        "author": "Oscar Wilde",
+        "quote": "Be yourself; everyone else is already taken."
+    }
+}
+```
+
+GET /quotes?author=Confucius
+Тело ответа 
+```bash
+{
+    "2": {
+        "author": "Oscar Wilde",
+        "quote": "Be yourself; everyone else is already taken."
+    }
+}
+```
+
+POST /quotes
+Тело запроса
+```bash
+{
+  "author": "Marcus Aurelius",
+  "quote": "You have power over your mind – not outside events."
+}
+```
+
+Тело ответа
+```bash
+{
+    "status": "created"
+}
+```
+
+DELETE /quotes/3
+Тело ответа 
+```bash
+{
+    "delete": "2"
 }
 ```
 
