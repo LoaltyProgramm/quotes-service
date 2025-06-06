@@ -159,7 +159,7 @@ curl -X DELETE http://localhost:8080/quotes/1
 Тело ответа 
 ```json
 {
-    "delete": "2"
+    "delete": "3"
 }
 ```
 
